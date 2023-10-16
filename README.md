@@ -66,6 +66,25 @@ export function Topbar() {
 }
 ```
 
+but with this plugin you can just do this:
+
+```jsx
+import Logo from "../assets/logo.png";
+
+export function Topbar() {
+  return (
+    <nav>
+      <div class="logo">
+        <Logo alt="Logo" />
+      </div>
+      <div class="center">
+        <h1>App title</h1>
+      </div>
+    </nav>
+  );
+}
+```
+
 When the above image is loaded using the html option, it will look something like this.
 
 ```js
