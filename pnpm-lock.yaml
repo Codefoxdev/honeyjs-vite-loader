@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@honeyjs/core':
-    specifier: ^0.2.1
-    version: 0.2.1
-
 devDependencies:
   vite:
     specifier: ^4.4.11
@@ -213,10 +208,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /@honeyjs/core@0.2.1:
-    resolution: {integrity: sha512-3QVYrqdp4nlO/M1rhozNZsQaZFSIR5E9rPAv/v1DFA4+b7f2oObE2/4dYUJGohBTIEufW+buHwZAih0Thc+pdw==}
-    dev: false
 
   /esbuild@0.18.20:
     resolution: {integrity: sha512-ceqxoedUrcayh7Y7ZX6NdbbDzGROiyVBgC4PriJThBKSVPWnnFHZAkfI1lJT8QFkOwH4qOS2SJkS4wvpGl8BpA==}

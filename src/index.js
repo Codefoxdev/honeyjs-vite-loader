@@ -2,25 +2,29 @@ import { readFileSync } from "node:fs";
 
 // TODO: Add option to toggle the usage of base64
 /**
- * @param {object} options
- * @param {"h" | "html"} options.defaultResult Changes what the default import results in, h returns a normal h function and html returns a native html element, defaults to html
- * @param {string} options.jsxInject The import code to inject into the src, defaults to vite's value
- * @param {string} options.jsxFactory The jsxfactory code to use, defaults to vite's value
- * @param {string} options.jsxFragment The jsx fragment code to use, defaults to vite's value
+ * @param {import("./types").options} options
  */
 export default function (options = {}) {
   const extensions = ["svg", "png"];
   // TODO: Add seperate queries for file extensions, because you can't use base64 with svg, and raw with png
   const queries = ["raw", "h", "html", "base64"];
 
+  const virtualId = "virtual:vite-loader-effect";
+  const resolvedVirtualId = "\0" + "virtual:vite-loader-effect"
+
   /** @type {import("vite").ResolvedConfig | null} */
   let config = null;
   let opts = options ??= {};
+  opts.defaultQuery ??= "html";
+  opts.effectFactory ??= "createEffect";
 
   return {
     name: "@honeyjs/vite-loader",
     enforce: "pre",
 
+    /**
+     * @param {import("vite").ResolvedConfig} resolvedConfig 
+     */
     configResolved(resolvedConfig) {
       config = resolvedConfig;
       opts.jsxInject ??= config.esbuild.jsxInject;
@@ -33,12 +37,20 @@ export default function (options = {}) {
     },
 
     /**
+     * @type {import("vite").ResolveFn}
+     */
+    async resolveId(id) {
+      if (id == virtualId) return resolvedVirtualId;
+    },
+
+    /**
      * @param {string} src
      * @param {string} id
      */
     async load(id) {
+      if (id == resolvedVirtualId) return virtualModule(opts);
       let [path, query] = id.split("?", 2);
-      query ??= opts.defaultResult;
+      query ??= opts.defaultQuery;
       const type = path.split(".").pop();
       if (!extensions.includes(type) || query == "url") return;
       if (!queries.includes(query))
@@ -98,5 +110,18 @@ function transformPNG(src, query, options) {
       + "  p.src=`" + base64 + "`;" + "\n"
       + `  return ${h}('img', p);` + "\n"
       + "}";
+  }
+}
+
+/**
+ * @param {import("./types").options} options
+ */
+function virtualModule(options) {
+  if (options.effect) {
+    return `${options.effect}; export const __cf = ${options.effectFactory}`;
+  } else {
+    return `export function __cf(callback) {
+      callback();
+    }`
   }
 }

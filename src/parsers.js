@@ -1,4 +1,4 @@
-import { createEffect } from "@honeyjs/core";
+import { __cf } from "virtual:vite-loader-effect";
 
 /** @param {string} prop */
 export function property(prop) {
@@ -13,7 +13,7 @@ export function style(element, style) {
       .replace('--', '-') // remove double hyphens
       .replace(/(^-)|(-$)/g, ''); // remove hyphens at the beginning and the end
     if (typeof style[property] == "string" || typeof style[property] == "number") element.style[cssProp] = style[property];
-    else if (typeof style[property] == "function") createEffect(() => element.style[cssProp] = style[property]());
+    else if (typeof style[property] == "function") __cf(() => element.style[cssProp] = style[property]());
   }
   return element;
 }
