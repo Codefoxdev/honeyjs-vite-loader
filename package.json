@@ -1,6 +1,6 @@
 {
   "name": "@honeyjs/vite-loader",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A vite plugin to load various files, like png, svg, etc. As native html elements, or h functions",
   "author": "Codefoxdev",
   "license": "MIT",
@@ -24,7 +24,9 @@
     "./parsers": "./src/parsers.js"
   },
   "dependencies": {
-    "@honeyjs/core": "^0.2.1",
+    "@honeyjs/core": "^0.2.1"
+  },
+  "devDependencies": {
     "vite": "^4.4.11"
   }
 }
