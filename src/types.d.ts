@@ -1,3 +1,5 @@
+import { Plugin } from "vite";
+
 declare interface options {
   /**
    * The import code to inject when loading an asset with dynamic properties,
@@ -17,7 +19,7 @@ declare interface options {
    * The function to use when resolving an effect
    * @default "createEffect"
    */
-  effectFactory: string = "createEffect";
+  effectFactory: string;
   /**
    * The default type to use when there is no query specified.
    * ```
@@ -28,7 +30,7 @@ declare interface options {
    *  import Logo from "./assets/logo?html"
    * ```
    */
-  defaultQuery: query = "html";
+  defaultQuery: query;
 
   /**
    * Ignore this value if you've already specified this in the esbuild section of the config file
@@ -45,14 +47,14 @@ declare interface options {
    * Speficies which h function to use
    * @default "h"
    */
-  jsxFactory: string | undefined = "h";
+  jsxFactory: string | undefined;
   /**
    * Specifies which Fragment function to use
    * @default "Fragment"
    */
-  jsxFragment: string | undefined = "Fragment";
+  jsxFragment: string | undefined;
 }
 
 declare type query = "html" | "h" | "url";
 
-export default function (options?: options);
+export default function (options?: options): Plugin;
