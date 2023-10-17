@@ -21,6 +21,11 @@ export default function (options = {}) {
   return {
     name: "@honeyjs/vite-loader",
     enforce: "pre",
+    config: () => ({
+      optimizeDeps: {
+        exclude: ["virtual:vite-loader-effect"]
+      },
+    }),
 
     /**
      * @param {import("vite").ResolvedConfig} resolvedConfig 
