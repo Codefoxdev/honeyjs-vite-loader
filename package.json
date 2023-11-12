@@ -18,10 +18,13 @@
     "url": "https://github.com/codefoxdev/honeyjs-vite-loader/issues"
   },
   "homepage": "https://github.com/codefoxdev/honeyjs-vite-loader#readme",
-  "types": "./src/types.d.ts",
+  "types": "./src/index.d.ts",
   "main": "./src/index.js",
   "exports": {
-    ".": "./src/index.js",
+    ".": {
+      "default": "./src/index.js",
+      "types": "./src/index.d.ts"
+    },
     "./parsers": "./src/parsers.js"
   },
   "devDependencies": {
